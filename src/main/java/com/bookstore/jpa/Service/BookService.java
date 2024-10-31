@@ -1,10 +1,9 @@
 package com.bookstore.jpa.Service;
 
-import com.bookstore.jpa.Exceptions.ObjectNotFoundException;
-import com.bookstore.jpa.Exceptions.ResourceNotFoundException;
+import com.bookstore.jpa.infra.Exceptions.ObjectNotFoundException;
+import com.bookstore.jpa.infra.Exceptions.ResourceNotFoundException;
 import com.bookstore.jpa.Models.Authors;
 import com.bookstore.jpa.Models.Book;
-import com.bookstore.jpa.Models.Dtos.BookDTO;
 import com.bookstore.jpa.Models.Dtos.RequestDTO.BookRequestDTO;
 import com.bookstore.jpa.Models.Review;
 import com.bookstore.jpa.Repositories.AuthorsRepository;

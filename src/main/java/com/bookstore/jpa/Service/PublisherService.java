@@ -1,19 +1,16 @@
 package com.bookstore.jpa.Service;
 
-import com.bookstore.jpa.Exceptions.ObjectNotFoundException;
-import com.bookstore.jpa.Exceptions.ResourceNotFoundException;
+import com.bookstore.jpa.infra.Exceptions.ObjectNotFoundException;
+import com.bookstore.jpa.infra.Exceptions.ResourceNotFoundException;
 import com.bookstore.jpa.Models.Book;
-import com.bookstore.jpa.Models.Dtos.PublisherDTO;
 import com.bookstore.jpa.Models.Dtos.RequestDTO.PublisherRequestDTO;
 import com.bookstore.jpa.Models.Publisher;
 import com.bookstore.jpa.Repositories.BookRepository;
 import com.bookstore.jpa.Repositories.PublisherRepository;
-import com.bookstore.jpa.Repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;

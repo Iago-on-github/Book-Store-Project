@@ -1,5 +1,6 @@
 package com.bookstore.jpa.Service;
 
+import com.bookstore.jpa.Models.User.User;
 import com.bookstore.jpa.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
