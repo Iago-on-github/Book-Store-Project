@@ -1,6 +1,6 @@
 package com.bookstore.jpa.Repositories;
 
-import org.apache.catalina.User;
+import com.bookstore.jpa.Models.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
