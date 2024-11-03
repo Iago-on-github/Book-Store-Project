@@ -15,11 +15,9 @@ import java.util.UUID;
 @Service
 public class ReviewService {
     private final ReviewRepository reviewRepository;
-    private final BookRepository bookRepository;
     @Autowired
-    public ReviewService(ReviewRepository reviewRepository, BookRepository bookRepository) {
+    public ReviewService(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
-        this.bookRepository = bookRepository;
     }
 
     public List<Review> listAllReview() {

@@ -14,8 +14,9 @@ public class JpaApplication {
 	fazer a correção de Review service/resources, (X)
 	fazer implementações personalizadas em todas as requisições (X),
 	implementar sistema de autenticação e autorização com S.S (X),
-	fazer a implementação de exceptions formatadas para melhor experiência do usuário
-	fazer a documentação da API
+	fazer a implementação de exceptions formatadas para melhor experiência do usuário (X),
+	fazer a documentação da API (),
+
 	*/
 }
 
