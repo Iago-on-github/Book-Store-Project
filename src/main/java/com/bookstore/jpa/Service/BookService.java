@@ -51,7 +51,6 @@ public class BookService {
                 .collect(Collectors.toSet());
         book.setAuthors(authors);
 
-
         Review review = new Review();
         review.setComment(dto.reviewComment().comment());
         review.setBook(book);
