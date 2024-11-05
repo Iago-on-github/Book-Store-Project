@@ -2,9 +2,6 @@ package com.bookstore.jpa.Service;
 
 import com.bookstore.jpa.Models.Authors;
 import com.bookstore.jpa.Models.Book;
-import com.bookstore.jpa.Models.Dtos.AuthorsDTO;
-import com.bookstore.jpa.Models.Dtos.BookDTO;
-import com.bookstore.jpa.Models.Dtos.PublisherDTO;
 import com.bookstore.jpa.Models.Dtos.RequestDTO.BookRequestDTO;
 import com.bookstore.jpa.Models.Dtos.ReviewDTO;
 import com.bookstore.jpa.Models.Publisher;
@@ -12,7 +9,7 @@ import com.bookstore.jpa.Models.Review;
 import com.bookstore.jpa.Repositories.AuthorsRepository;
 import com.bookstore.jpa.Repositories.BookRepository;
 import com.bookstore.jpa.Repositories.PublisherRepository;
-import org.assertj.core.api.Assert;
+import com.bookstore.jpa.infra.Exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,13 +21,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class) //permite o JUnit usar o Mockito
+@ExtendWith(MockitoExtension.class)
 class BookServiceTest {
     @Mock
     private BookRepository bookRepository;
@@ -70,6 +66,17 @@ class BookServiceTest {
             // Assert
             assertNotNull(output);
             assertEquals(output.getId(), uuidArgumentCaptor.getValue());
+        }
+
+        @Test
+        @DisplayName("Should throws exception when error occurs in get book by id")
+        void shouldThrowsExceptionWhenErrorOccursInGetBookById() {
+            // Arrange
+            UUID bookId = UUID.randomUUID();
+            when(bookRepository.findById(bookId)).thenThrow(new RuntimeException());
+
+            // Act & Assert
+            assertThrows(RuntimeException.class, () -> bookService.findBookById(bookId));
         }
     }
     @Nested
@@ -234,6 +241,36 @@ class BookServiceTest {
             assertEquals(output.getPublisher(), capturedBook.getPublisher(), "Captured Publisher should match");
             //assertEquals(output.getAuthors(), capturedBook.getAuthors(), "Captured Authors should match");
             assertEquals(output.getReview().getComment(), capturedBook.getReview().getComment(), "Captured Review comment should match");
+        }
+
+        @Test
+        @DisplayName("Should throws exception when error occurs in save book")
+        void shouldThrowsExceptionWhenErrorOccursInSaveBook() {
+            // Arrange
+            UUID publisherId = UUID.randomUUID();
+            UUID authorsId = UUID.randomUUID();
+            Publisher publisher = new Publisher(publisherId, "Indow Books");
+            Authors authors = new Authors(authorsId, "Kvjnsky");
+            ReviewDTO reviewDTO = new ReviewDTO(null, null, "Amazing book!");
+
+            BookRequestDTO dto = new BookRequestDTO(
+                    "Angels of Dark",
+                    publisher.getId(),
+                    Set.of(authors.getId()),
+                    reviewDTO
+            );
+
+            Book book = new Book(
+                    UUID.randomUUID(),
+                    dto.title(),
+                    publisher,
+                    new Review(null, dto.reviewComment().comment(), null)
+            );
+
+            when(publisherRepository.findById(publisherId)).thenReturn(Optional.empty());
+
+            // Act e Assert
+            assertThrows(ResourceNotFoundException.class, () -> bookService.saveBook(dto));
         }
     }
 }
